@@ -1,0 +1,45 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+.restaurant-image {
+
+}
+
+.location-img {
+    background: url('../images/location.png') no-repeat center;
+    object-fit: cover;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.restaurant-category::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.restaurant-category {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overflow: 'auto'; 
+  white-space: 'nowrap'; 
+  align-items: 'center'; 
+  width: '94vw';
+}
+
+.open-service-img {
+    content:url('../images/location.png');
+}
+
+.add-to-cart-img {
+    content:url('../images/location.png');
+    width: 24px;
+    height: 24px;
+}
