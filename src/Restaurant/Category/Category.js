@@ -7,8 +7,6 @@ export const Category = ({category}) => {
     const [categoryItems, setCategoryItems] = useState([]);
 
     useEffect(()=>{
-
-        console.log('category', category);
         
         let items = category.items.map((item) => {
             return <CategoryItem key={item.id} item={item} />

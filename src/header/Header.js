@@ -18,7 +18,10 @@ export const Header = () => {
                     to="/restaurant">Restaurant</Link>
                 <Link
                     className="headerLink" 
-                    to="/cars">Cars</Link>
+                    to="/order">Order</Link>
+                <Link
+                    className="headerLink" 
+                    to="/invoice">Invoice</Link>
              
             </div>
         </div>

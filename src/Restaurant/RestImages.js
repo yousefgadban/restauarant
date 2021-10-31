@@ -21,7 +21,7 @@ export const RestImages = () => {
     }
 
     return(
-        <div className="images-grid" style={{display: 'grid', gridTemplateColumns: 'repeat(3, auto)'}}>
+        <div className="images-grid" style={{display: 'grid', height: '400px', gridTemplateColumns: 'repeat(3, auto)'}}>
             {
                 restImages.map((img)=>{
                     return <div key={img.id} style={{border: '1px solid black', height: '200px', background: `url(${img.urls.regular}) no-repeat center center`}}>

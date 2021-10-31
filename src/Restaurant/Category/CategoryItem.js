@@ -1,13 +1,19 @@
 import React, { useEffect } from "react";
+import OrderService from "../../services/OrderService";
+
 
 export const CategoryItem = ({item}) => {
 
     useEffect(()=>{
         
-    });
+    }, []);
 
     const onAddItemToCartClicked = () => {
         console.log('onAddItemToCartClicked ', item.id);
+
+        OrderService.instance.addItemToOrder(item);
+        OrderService.instance.print();
+
     }
 
     return(
