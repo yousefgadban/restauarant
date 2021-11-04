@@ -1,0 +1,70 @@
+.service {
+    width: 28px;
+    height: 28px;
+    margin: 8px;
+}
+
+.WaiterService {
+    content:url('../../images/Waiter.png');
+    alt: 'logo';
+}
+
+.NotesService {
+    content:url('../../images/Notes.png');
+    alt: 'logo';
+}
+
+.BillService {
+    content:url('../../images/Bill.png');
+    alt: 'logo';
+}
+
+.DoneService {
+    content:url('../../images/done.png');
+    alt: 'logo';
+}
+
+.SendingService {
+    content:url('../../images/location.png');
+    alt: 'logo';
+}
+
+
+.OrderService {
+    content:url('../../images/Order.png');
+    alt: 'logo';
+}
+
+.SaucesService {
+    content:url('../../images/Sauces.png');
+    alt: 'logo';
+}
+
+.SilverwareService {
+    content:url('../../images/Silverware.png');
+    alt: 'logo';
+}
+
+.CleanService {
+    content:url('../../images/Clean.png');
+    alt: 'logo';
+}
+
+.NapkinsService {
+    content:url('../../images/Napkins.png');
+    alt: 'logo';
+}
+
+.SaltService {
+    content:url('../../images/Salt.png');
+    alt: 'logo';
+}
+
+.ToothpicksService {
+    content:url('../../images/Toothpicks.png');
+    alt: 'logo';
+}
+
+
+
+

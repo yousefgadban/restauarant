@@ -15,20 +15,17 @@ export const RestDescription = () => {
     }, []);
 
     return(
-        <div style={{margin: '20px', border: '1px solid #2196f3', padding: '15px', borderRadius: '12px'}}>
+        <div style={{margin: '20px'}}>
             <div style={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
 
                 <div style={{display: 'flex', flexDirection: 'column', alignContent: 'center'}}>
-                    <p>{restName}</p>
-                    <p>{restLocation.current}</p>
+                    <div style={{color: '#707070', fontSize: '16px'}}>{restName}</div>
+                    <div style={{color: '#707070', fontSize: '14px'}}>{restLocation.current}</div>
                 </div>
 
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                    <i className="location arrow large icon" style={{color: '#2196f3', width: '50px', height: '50px'}}></i>
-                </div>
-
-
+                <img className='rest-details-img' alt=''/>
             </div>
+            <hr style={{marginTop: '16px'}}/>
         </div>
     );
 }

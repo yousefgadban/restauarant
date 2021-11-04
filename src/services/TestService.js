@@ -16,7 +16,8 @@ export default class TestService {
     }
 
     getCategories() {
-        return restData.Categories;
+        // return restData.Categories;
+        return Object.values(restData.Categories)
     }
 
 }

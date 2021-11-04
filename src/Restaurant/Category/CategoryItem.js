@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
-import OrderService from "../../services/OrderService";
 
-
-export const CategoryItem = ({item}) => {
+export const CategoryItem = ({item, onAddItemClicked}) => {
 
     useEffect(()=>{
         
     }, []);
 
     const onAddItemToCartClicked = () => {
-        console.log('onAddItemToCartClicked ', item.id);
 
-        OrderService.instance.addItemToOrder(item);
-        OrderService.instance.print();
+        let str = JSON.stringify(item)
+        let item1 = JSON.parse(str)
+        
+        console.log('cate item ', item1);
+        onAddItemClicked(item1)
 
     }
 
     return(
-        <div style={{width: '200px', height: '220px',  marginRight: '2vw', display: 'inline-block', borderRadius: '12px', border: '1px solid #c8c8c8'}}>
+        <div style={{width: '200px', height: '220px',  marginRight: '2vw', display: 'inline-block', borderRadius: '12px', border: '1px solid #c8c8c8', scrollSnapAlign: 'center'}}>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                <div style={{width: '200px', height: '170px', background: `url(${item.url}) no-repeat center `, borderTopRightRadius: '10px', borderTopLeftRadius: '10px'}}>
+                <div style={{width: '200px', height: '170px', background: `url(${item.url}) no-repeat center center/cover`, borderTopRightRadius: '10px', borderTopLeftRadius: '10px'}}>
 
                 </div>
             </div>

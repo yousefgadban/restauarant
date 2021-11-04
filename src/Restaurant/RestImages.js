@@ -21,10 +21,10 @@ export const RestImages = () => {
     }
 
     return(
-        <div className="images-grid" style={{display: 'grid', height: '400px', gridTemplateColumns: 'repeat(3, auto)'}}>
+        <div className="rest-images-grid" >
             {
                 restImages.map((img)=>{
-                    return <div key={img.id} style={{border: '1px solid black', height: '200px', background: `url(${img.urls.regular}) no-repeat center center`}}>
+                    return <div key={img.id} className="rest-image" style={{background: `url(${img.urls.regular}) no-repeat center center`}}>
                         {/* <img className="restaurant-image" alt="" src={img.urls.regular} style={{height: '100%', width: '100%'}} /> */}
                     </div>
                 })
@@ -32,3 +32,6 @@ export const RestImages = () => {
         </div>
     );
 }
+
+// style={{display: 'grid', height: '400px', gridTemplateColumns: 'repeat(3, auto)'}}
+// style={{border: '1px solid black', height: '200px', background: `url(${img.urls.regular}) no-repeat center center`}}

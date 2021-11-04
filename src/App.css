@@ -1,0 +1,59 @@
+.invoice-div {
+    display: flex;
+    width: 50vw; 
+    height: 80vh;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start; 
+    padding: 12px;
+}
+
+.my-order-div {
+    width: 50vw; 
+}
+
+.goToInvoice {
+    height: 28px;
+    width: 28px;
+    content:url('./images//Bill.png');
+    alt: 'logo';
+}
+
+
+
+
+ /* -------------------------------------------------- MEDIA QUERIES ------------------------------------------------ */
+
+/* Smartphones */
+@media only screen and (max-width: 500px) {
+
+    .invoice-div {
+        width: 100vw;
+    }
+
+    .my-order-div {
+        width: 100vw;
+    }
+}
+
+/* Tablet */
+@media(min-width: 501px) and (max-width: 768px) {
+
+}
+
+
+
+/* Normal */
+@media(min-width: 769px) and (max-width: 1200px) {
+ 
+}
+
+/* Widescreen */
+@media(min-width: 1201px) {
+  
+}
+
+/* Landscape */
+@media(max-height: 500px) {
+
+}
