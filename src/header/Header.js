@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { SideMenu } from '../SideMenu/SideMenu';
 import { useHistory } from 'react-router-dom';
 import { priceService } from '../services/priceService';
+import { LoginService } from '../services/LoginService';
 import OrderService from "../services/OrderService";
 import './Header.css'
 
@@ -11,13 +12,19 @@ export const Header = () => {
 
     const history = useHistory();
     const [showSideMenu, setShowSideMenu] = useState(false);
-    const [itemsCount, setItemsCount] = useState(0)
+    const [itemsCount, setItemsCount] = useState(0);
+    const [user, setUser] = useState(null);
 
     useEffect(()=>{
         setItemsCount(OrderService.instance.getItemsCount());
         priceService.getItemsCount().subscribe(items => {
             console.log('items count', items);
             setItemsCount(items);
+        });
+
+        LoginService.getUser().subscribe(user => {
+            console.log('header user', user);
+            setUser(user);
         });
 
     }, []);
@@ -39,7 +46,7 @@ export const Header = () => {
 
     const onLogoClicked = () => {
         console.log('onLogoClicked');
-        history.push('/restaurant');
+        history.push('/home');
     }
   
     return (

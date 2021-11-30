@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { PriceNav } from "../PriceNav/PriceNav";
 import { AdditionModal } from "./additionModal/AdditionModal";
 import { RestDescription } from "./RestDescription";
@@ -13,6 +13,12 @@ export const Restaurant = () => {
     const additionsItem = useRef('');
     const itemKey = useRef('');
     // const [additionsModals, setAdditionsModals] = useState([])
+
+
+    useEffect(() => {
+
+    }, []);
+
 
     const onAddItemClicked = (item) => {
         console.log('showAdditionsModal', item);

@@ -48,7 +48,7 @@ export const SideMenu = ({changeSideMenuModalDisplay}) => {
                     <p style={{color: '#707070', padding: '10px'}}>Terms of use</p>
                     <p style={{color: '#707070', padding: '10px'}}>Contact Us</p>
                     <hr style={{ margin: '10px'}}/>
-                    <p style={{color: '#707070', padding: '10px'}}>Logout</p>
+                    <p onClick={()=>{history.push('/login'); closeSideMenuModal(); }} style={{color: '#707070', padding: '10px'}}>Logout</p>
                 
                 </div>
                 
