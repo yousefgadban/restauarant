@@ -31,6 +31,10 @@
     border: 2px solid #2196f3;
 }
 
+.sideMenuLogoImg {
+    content:url('./images/logo256.png');
+  }
+
 
 
  /* -------------------------------------------------- MEDIA QUERIES ------------------------------------------------ */

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import TestService from '../services/TestService'
+import TestService from '../services/TestService';
+import RestaurantService from '../services/RestaurantService';
+
 import './restaurant.css'
 
 export const RestDescription = () => {
@@ -9,8 +11,8 @@ export const RestDescription = () => {
 
     useEffect(()=>{
 
-        setRestName(TestService.instance.getName());
-        restLocation.current = TestService.instance.getLocation();
+        setRestName(RestaurantService.instance.getName());
+        restLocation.current = RestaurantService.instance.getLocation();
         
     }, []);
 

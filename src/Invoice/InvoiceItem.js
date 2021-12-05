@@ -11,19 +11,14 @@ export const InvoiceItem = ({item, itemKey}) => {
 
         let itemAdd = [];
 
-        if (OrderService.instance.getOrder().items[itemKey] !== undefined && OrderService.instance.getOrder().items[itemKey].additions !== undefined) {
-            Object.values(OrderService.instance.getOrder().items[itemKey].additions).forEach((addition)=>{
-
-                // let additionItems = Object.values(OrderService.instance.getOrder().items[itemKey].additions[addition.key].additionItems).map((additionItem)=>{
-                //     if (additionItem.default) {
-                //         return <InvoiceItemAddition key={additionItem.key} itemAddition={additionItem} />
-                //     }
-                // })
+        if (OrderService.instance.getOrder().items[itemKey] !== undefined && OrderService.instance.getOrder().items[itemKey].additions.length !== 0) {
+            
+            OrderService.instance.getOrder().items[itemKey].additions.forEach((addition)=>{
 
                 let additionItems = [];
-                 Object.values(OrderService.instance.getOrder().items[itemKey].additions[addition.key].additionItems).forEach((additionItem)=>{
-                    if (additionItem.default) {
-                        additionItems.push(<InvoiceItemAddition key={additionItem.key} itemAddition={additionItem} />);
+                addition.additionItems.forEach((additionItem)=>{
+                    if (additionItem.isDefault) {
+                        additionItems.push(<InvoiceItemAddition key={additionItem._id} itemAddition={additionItem} />);
                     }
                 })
     
@@ -32,6 +27,22 @@ export const InvoiceItem = ({item, itemKey}) => {
 
                 
             })
+
+
+            // OrderService.instance.getOrder().items[itemKey].additions.forEach((addition)=>{
+
+            //     let additionItems = [];
+            //      Object.values(OrderService.instance.getOrder().items[itemKey].additions[addition.key].additionItems).forEach((additionItem)=>{
+            //         if (additionItem.default) {
+            //             additionItems.push(<InvoiceItemAddition key={additionItem.key} itemAddition={additionItem} />);
+            //         }
+            //     })
+    
+            //     itemAdd.push(additionItems);
+  
+
+                
+            // })
     
             setAdditions(itemAdd)
         }

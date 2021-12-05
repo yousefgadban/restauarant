@@ -35,7 +35,7 @@ export const Addition = ({addition, itemId}) => {
             <div style={{display: 'grid', gridTemplateColumns: 'auto auto'}}>
                 {
                     additionItems.map((additionItem) => {
-                        return <AdditionItem key={additionItem.key} additionItem={additionItem}  additionItemCLicked={additionItemCLickedd}/>
+                        return <AdditionItem key={additionItem._id} additionItem={additionItem}  additionItemCLicked={additionItemCLickedd}/>
                     })
                 }
             </div>

@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { SideMenu } from '../SideMenu/SideMenu';
 import { useHistory } from 'react-router-dom';
 import { priceService } from '../services/priceService';
-import { LoginService } from '../services/LoginService';
+import  LoginService  from '../services/LoginService';
 import OrderService from "../services/OrderService";
+import { getUserInfo } from '../API/restAPI';
 import './Header.css'
 
 export const Header = () => { 
@@ -15,17 +16,28 @@ export const Header = () => {
     const [itemsCount, setItemsCount] = useState(0);
     const [user, setUser] = useState(null);
 
-    useEffect(()=>{
+    useEffect( async ()=>{
         setItemsCount(OrderService.instance.getItemsCount());
         priceService.getItemsCount().subscribe(items => {
             console.log('items count', items);
             setItemsCount(items);
         });
 
-        LoginService.getUser().subscribe(user => {
-            console.log('header user', user);
-            setUser(user);
-        });
+        if (!LoginService.instance.getUser()) {
+            history.push(`/login`);
+        }
+
+        // const response = await getUserInfo();
+        // console.log('getUserInfo',response);
+        // if (response.status === 200) {
+        //     LoginService.instance.setUSer(response.data.data);
+        // } else if (response.status === 401 && (window.location.pathname !== '/login' && window.location.pathname !== '/register')) {
+        //     history.push(`/login`);
+        // } else if (response.status === 100) {
+            
+        // } else {
+        //     console.log('Unknown error');
+        // }
 
     }, []);
 

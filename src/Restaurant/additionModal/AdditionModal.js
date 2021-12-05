@@ -28,8 +28,8 @@ export const AdditionModal = ({changeAdditionsModalDisplay, item, itemKey}) => {
                         {
                             //  console.log(item)
 
-                            item.hasOwnProperty('additions') ? Object.values(item.additions).map(addition => {
-                                return <Addition key={addition.key} addition={addition} itemId={itemKey} />
+                            item.additions.length !== 0 ? Object.values(item.additions).map(addition => {
+                                return <Addition key={addition._id} addition={addition} itemId={itemKey} />
                             }) : '' 
 
                             // OrderService.instance.getItemAdditions(item.key)?

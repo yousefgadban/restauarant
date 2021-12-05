@@ -24,14 +24,16 @@ export const SideMenu = ({changeSideMenuModalDisplay}) => {
                 <div style={{backgroundColor: '#f7f7f7', padding: '8px', margin: '0', boxSizing: 'border-box', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px'}}>
                     <span onClick={()=>{ closeSideMenuModal()}} className="close">&times;</span>
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '8px 0'}}>
-                        <img src={faker.image.avatar()} alt='' style={{width: '120px', height: '120px', borderRadius: '50%', backgroundColor: 'blue'}} />
-                        <div style={{fontSize: '18px', color: '#2196f3', padding: '12px'}}>{faker.name.findName()}</div>
+                        <img className="sideMenuLogoImg"  alt='' style={{width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#ffffff', border: '1px solid #c8c8c8'}} />
+                        <div style={{fontSize: '18px', color: '#2196f3', padding: '12px'}}>App Name</div>
                     </div>
                     <hr />
                     
                     <p style={{color: '#707070', textDecoration: 'underLine', paddingTop: '10px'}}>Orders:</p>
                     <p style={{color: '#707070', padding: '10px'}}>My orders</p>
                     <p style={{color: '#707070', paddingLeft: '10px'}}>Saved orders</p>
+                    <hr style={{ margin: '10px'}}/>
+                    <p onClick={()=>{history.push('/myRestaurants'); closeSideMenuModal(); }} style={{color: '#707070', paddingLeft: '10px'}}>My restaurants</p>
                     <hr style={{ margin: '10px'}}/>
                     <p style={{color: '#707070', textDecoration: 'underLine', paddingTop: '10px'}}>Settings:</p>
                     <p style={{color: '#707070', padding: '10px'}}>Language</p>

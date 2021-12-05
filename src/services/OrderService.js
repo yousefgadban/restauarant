@@ -33,11 +33,11 @@ export default class OrderService {
         Object.values(this.order.items).forEach(item => {
             total += item.price;
 
-            if (item.hasOwnProperty('additions')) {
+            if (item.additions.length !== 0) {
                 Object.values(item.additions).forEach(addition => {
 
                     Object.values(addition.additionItems).forEach(additionItem => {
-                        total += additionItem.default ? additionItem.price : 0;
+                        total += additionItem.isDefault ? additionItem.price : 0;
                     })
 
                 })
@@ -56,32 +56,33 @@ export default class OrderService {
         
         let item = {};
         item.id = uuid //''+new Date().getTime() 
-        item.key = item1.key
+        item._id = item1._id
         item.name = item1.name
         item.name_ar = item1.name_ar
         item.name_en = item1.name_en
         item.name_he = item1.name_he
         item.price = item1.price
         item.url = item1.url
-        if (item1.hasOwnProperty('additions')) {
-            item.additions = item1.additions
-        }
+        item.additions = item1.additions
+        // if (item1.additions.length !== 0) {
+        //     item.additions = item1.additions
+        // }
         
 
-        console.log('item', item);
+        console.log('item1', item1, item1.additions.length);
         console.log('add item to order ', item, uuid);
         //item['id'] = ''+new Date().getTime() // uuid;
 
         //this.order.items.push(item);
         //this.order.items = [...this.order.items, item]
 
-        this.order.items[uuid] = item;
+        //this.order.items[uuid] = item;
+        this.order.items.push(item);
 
         priceService.updatePrice(this.calculatePrice());
         priceService.updateOrderItemsCount(++this.itemsCount);
 
         console.log(this.order);
-
 
         return
     }
@@ -113,7 +114,12 @@ export default class OrderService {
     }
 
     getOrder() {
+        console.log(this.order);
         return this.order;
+    }
+
+    getOrderStringfy() {
+        return JSON.stringify(this.order);
     }
 
     removeItem(id) {
@@ -130,7 +136,7 @@ export default class OrderService {
    
         if (typeof id !== 'undefined' && typeof this.order.items[id] !== 'undefined') {
             console.log(this.order.items[id].additions);
-            return this.order.items[id].hasOwnProperty('additions') ? Object.values(this.order.items[id].additions) : [];
+            return this.order.items[id].additions.length !== 0 ? Object.values(this.order.items[id].additions) : [];
         } 
         return [];
         
@@ -138,22 +144,66 @@ export default class OrderService {
 
 
 
+    // updateAdditionItem(itemId, addition, additionItem) {
+    //     console.log(itemId, addition, additionItem);
+    //     console.log(addition._id, additionItem._id);
+    //     console.log();
+        
+    //     if (!addition.singleChoice) {
+
+    //         let currentDefault = this.order.items[itemId].additions[addition._id].additionItems[additionItem._id].default;
+    //         this.order.items[itemId].additions[addition._id].additionItems[additionItem._id].default = !currentDefault;
+
+    //     } else {
+
+    //         Object.values(this.order.items[itemId].additions[addition._id].additionItems).forEach(additionItem => {
+    //             additionItem.isDefault = false;
+    //         });
+
+    //         this.order.items[itemId].additions[addition._id].additionItems[additionItem._id].default = true
+
+    //     }
+
+    //     priceService.updatePrice(this.calculatePrice());
+    //     console.log(this.order);
+
+    // }
+
+
     updateAdditionItem(itemId, addition, additionItem) {
         console.log(itemId, addition, additionItem);
-        console.log(addition.key, additionItem.key);
+        console.log(addition._id, additionItem._id);
+        console.log();
         
         if (!addition.singleChoice) {
 
-            let currentDefault = this.order.items[itemId].additions[addition.key].additionItems[additionItem.key].default;
-            this.order.items[itemId].additions[addition.key].additionItems[additionItem.key].default = !currentDefault;
+            let AI = this.order.items[itemId].additions.find((add) => {
+                return add._id === addition._id
+            });
+
+            AI.additionItems.find(addItem => {
+                if (additionItem._id === addItem._id ) {
+                    addItem.isDefault = !addItem.isDefault;
+                }
+            });
 
         } else {
 
-            Object.values(this.order.items[itemId].additions[addition.key].additionItems).forEach(additionItem => {
-                additionItem.default = false;
+            let AI = this.order.items[itemId].additions.find((add) => {
+                return add._id === addition._id
             });
 
-            this.order.items[itemId].additions[addition.key].additionItems[additionItem.key].default = true
+            console.log('AI', AI);
+
+            AI.additionItems.forEach(addItem => {
+                addItem.isDefault = false;
+
+                if (additionItem._id === addItem._id ) {
+                    addItem.isDefault = true;
+                }
+            });
+
+//            this.order.items[itemId].additions[addition._id].additionItems[additionItem._id].isDefault = true
 
         }
 

@@ -4,6 +4,8 @@ import {  useHistory  } from 'react-router-dom';
 import TestService from '../services/TestService'
 
 import {getSearch} from '../API/restAPI'
+import Spinner from "../Spinner/Spinner";
+import LoginService from "../services/LoginService";
 
 export const Home = () => {
 
@@ -16,11 +18,27 @@ export const Home = () => {
 
 
     useEffect(async() => {
+        setShowLoader(true);
         TestService.instance.helloWorld();
+
 
         const response = await getSearch();
         console.log(response);
-        setAllSearchList(response.data.data);
+
+        if (response.status === 200) {
+            setAllSearchList(response.data.data);
+            setShowLoader(false);
+        } else if (response.status === 401) {
+            history.push(`/login`);
+        } else if (response.status === 100) {
+            const response = await getSearch();
+            setAllSearchList(response.data.data);
+            setShowLoader(false);
+        } else {
+            console.log('Unknown error');
+        }
+
+        // history.push(`/login`);
 
     }, []);
 
@@ -53,6 +71,11 @@ export const Home = () => {
     }
 
     return(
+        showLoader 
+        ? <div style={{width: '100%', height: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Spinner />
+        </div>  
+        : 
         <div >
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '92vh'}}>
                 <div className="search-input-field" style={{width: '70vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

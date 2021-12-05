@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TestService from "../services/TestService";
 import { Category } from "./Category/Category";
+import RestaurantService from '../services/RestaurantService';
 
 export const RestMenu = ({onAddItemClicked}) => {
 
@@ -8,8 +9,15 @@ export const RestMenu = ({onAddItemClicked}) => {
 
     useEffect(()=>{
 
-        let categories = TestService.instance.getCategories().map((category) => {
-            return <div key={category.key}>
+        // let categories = RestaurantService.instance.getCategories().map((category) => {
+        //     return <div key={category.key}>
+        //         <Category category={category} onAddItemClicked={onAddItemClicked} />
+        //         <hr style={{margin: '12px'}} />
+        //     </div>
+        // })
+
+        let categories = RestaurantService.instance.getCategories().map((category) => {
+            return <div key={category._id}>
                 <Category category={category} onAddItemClicked={onAddItemClicked} />
                 <hr style={{margin: '12px'}} />
             </div>

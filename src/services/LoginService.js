@@ -1,8 +1,16 @@
-import { Subject } from 'rxjs';
 
-const loginSubject = new Subject();
 
-export const LoginService = {
-    updateUser: user => loginSubject.next(user),
-    getUser: () => loginSubject.asObservable(),
-};
+export default class LoginService {
+    static instance = LoginService.instance || new LoginService();
+
+    user = null;
+
+    getUser() {
+        return this.user;
+    }
+
+    setUser(usr) {
+        this.user = usr;
+    }
+
+}

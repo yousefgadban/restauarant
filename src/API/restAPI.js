@@ -6,6 +6,26 @@ const api = axios.create({
       },
 });
 
+export const getUserInfo = async ()=>{
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.get('/auth/getUserInfo', headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+
 export const getUsers = async ()=>{
 
     const token = localStorage.getItem('token');
@@ -46,6 +66,26 @@ export const getSearch = async ()=>{
     }
 }
 
+export const getRestaurantData = async (id) => {
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.get(`/restaurant/getRestaurantData/${id}`, headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+
 export const getToken = async ()=>{
     console.log('getToken');
 
@@ -67,10 +107,121 @@ export const getToken = async ()=>{
 
             return {status: 100};
         } else {
-            // go to login
+            return {status: 100};
         }
     } catch (err) {
         console.log(err);
         return err.response;
     }
 }
+
+
+export const addNewCall = async (params) => {
+
+    const { restaurantID, name, table, service } = params;
+
+    console.log(restaurantID, name, table, service );
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.post(`/calls/addNewCall`, params, headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+
+
+export const addNewOrder = async (params) => {
+
+    const { restaurantID, name, table, service } = params;
+
+    console.log(restaurantID, name, table, service );
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.post(`/orders/addNewOrder`, params, headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+
+export const getUserRestaurants = async ()=>{
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.get('/restaurant/getUserRestaurants', headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+
+export const getRestaurantCalls = async (id)=>{
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.get(`/calls/getCalls/${id}`, headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+
+export const getRestaurantOrders = async (id)=>{
+
+    const token = localStorage.getItem('token');
+    let headers = { headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }}
+
+    try {
+        return await api.get(`/orders/getOrders/${id}`, headers); 
+    } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+            return await getToken();
+        } else {
+            return err.response; 
+        }
+    }
+}
+

@@ -4,6 +4,8 @@ import axios from 'axios';
 import OrderService from "../../services/OrderService";
 import { useHistory } from 'react-router-dom';
 import Spinner from "../../Spinner/Spinner";
+import { addNewCall, addNewOrder } from '../../API/restAPI';
+import RestaurantService from "../../services/RestaurantService";
 
 export const Service = ({service, onServiceClicked}) => {
 
@@ -32,19 +34,25 @@ export const Service = ({service, onServiceClicked}) => {
     }
 
     const sendOrder = async () => {
-        let restaurantID = '1';
+        let restaurantID = RestaurantService.instance.getRestaurantID();
         let table = Math.floor(Math.random()*5+1);
         
+        console.log(typeof OrderService.instance.getOrder().items, OrderService.instance.getOrder().items.length);
+        console.log(Object.keys(OrderService.instance.getOrder()).length);
+
         let params = {
-            order: OrderService.instance.getOrder().items,
+            service: `order`,
             table: `Table ${table}`,
-            time: getTimeStr()
+            name: `yousef`,
+            restaurantID: restaurantID,
+            order: OrderService.instance.getOrder(),
+            price: OrderService.instance.getPrice()
         }
 
-        console.log(OrderService.instance.getOrder().items);
 
-        let response = await axios.post(`https://6177eef89c328300175f5c4a.mockapi.io/api/v1/restaurants/${restaurantID}/orders`, params);
-        console.log(response);
+        // let response = await axios.post(`https://6177eef89c328300175f5c4a.mockapi.io/api/v1/restaurants/${restaurantID}/orders`, params);
+        let response = await addNewOrder(params);
+        console.log(response); 
 
         setStatus('done');
         setTimeout(() => {
@@ -52,21 +60,24 @@ export const Service = ({service, onServiceClicked}) => {
         }, 1200);
 
         OrderService.instance.setEmptyOrder();
-        history.push('/restaurant');
+        history.push(`/restaurant/${restaurantID}/name`);
 
     }
 
     const sendCall = async () => {
-        let restaurantID = '1';
+        let restaurantID = RestaurantService.instance.getRestaurantID();
         let table = Math.floor(Math.random()*5+1);
         
         let params = {
-            name: `${service}`,
+            service: `${service}`,
             table: `Table ${table}`,
-            time: getTimeStr()
+            name: `yousef`,
+            restaurantID: restaurantID  
         }
 
-        let response = await axios.post(`https://6177eef89c328300175f5c4a.mockapi.io/api/v1/restaurants/${restaurantID}/calls`, params);
+        // let response = await axios.post(`https://6177eef89c328300175f5c4a.mockapi.io/api/v1/restaurants/${restaurantID}/calls`, params);
+        let response = await addNewCall(params);
+
         console.log(response);
 
         setStatus('done');

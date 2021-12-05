@@ -7,8 +7,15 @@ export const OrderItem = ({order}) => {
 
     }, []);
 
+    const timeFormatFromTS = (ts) => {
+        let date = new Date(ts);
+        let hours = date.getHours() < 10 ? '0'+date.getHours() : date.getHours()
+        let minutes = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
+        return hours+':'+minutes;
+    }
+
     return(
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between',  border: '1px solid #2196f3', borderRadius: '12px', margin: '2px', padding: '0 12px'}}>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between',  border: '1px solid #2196f3', borderRadius: '12px', margin: '2px 8px', padding: '0 12px'}}>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div
                     style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70px'}}>
@@ -19,7 +26,7 @@ export const OrderItem = ({order}) => {
                 <p style={{color: '#707070', fontSize: '16px', marginLeft: '12px'}}>{order.table}</p>
             </div>
             <div>
-                <p style={{color: '#707070', fontSize: '16px', marginLeft: '12px'}}>{order.time}</p>
+                <p style={{color: '#707070', fontSize: '16px', marginLeft: '12px'}}>{timeFormatFromTS(order.time)}</p>
             </div>
             
             

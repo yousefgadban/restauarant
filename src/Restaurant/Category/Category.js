@@ -10,7 +10,7 @@ export const Category = ({category, onAddItemClicked}) => {
     useEffect(()=>{
         
         let items = Object.values(categoryy.current.items).map((item) => {
-            return <CategoryItem key={item.key} item={item} onAddItemClicked={onAddItemClicked} />
+            return <CategoryItem key={item._id} item={item} onAddItemClicked={onAddItemClicked} />
         })
         setCategoryItems(items);
 
