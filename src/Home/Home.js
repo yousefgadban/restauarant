@@ -5,7 +5,6 @@ import TestService from '../services/TestService'
 
 import {getSearch} from '../API/restAPI'
 import Spinner from "../Spinner/Spinner";
-import LoginService from "../services/LoginService";
 
 export const Home = () => {
 
@@ -60,10 +59,7 @@ export const Home = () => {
 
     }, [search]);
 
-    const onSearchClicked = () => {
-        console.log('onSearchClicked', search);
-       
-    }
+  
 
     const onSearchItemClicked = (searchItem) => {
         console.log('onSearchItemClicked', searchItem);
@@ -81,18 +77,12 @@ export const Home = () => {
                 <div className="search-input-field" style={{width: '70vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <input
                         className="search-input"
-                        style={{width: '60vw', height: '40px', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px', padding: '0 12px'}}
+                        style={{width: '70vw', height: '40px', borderRadius: '6px', padding: '0 12px'}}
                         type="text" 
                         placeholder="Search..." 
                         id="search" 
                         name="search"
                         onChange={(e) => {setSearch(e.target.value)}}/>
-
-                    <div style={{width: '10vw', height: '40px',  display: 'flex', backgroundColor: 'blueviolet', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '6px', borderBottomRightRadius: '6px'}}>
-                        <img
-                            onClick={() => {onSearchClicked();}} 
-                            className="open-service-img" alt="" width='28px' height='28px' />
-                    </div>
 
                 </div>
 

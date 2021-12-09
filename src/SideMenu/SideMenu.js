@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import './SideMenu.css'
-import faker from 'faker'
 
 export const SideMenu = ({changeSideMenuModalDisplay}) => {
 
@@ -16,7 +15,7 @@ export const SideMenu = ({changeSideMenuModalDisplay}) => {
     }
 
     return(
-        <div id="myModal" className="modal" style={{ }} onClick={()=>{ closeSideMenuModal()}}>
+        <div id="myModal" className="side-menu-modal" style={{ }} onClick={()=>{ closeSideMenuModal()}}>
             <div
                 onClick={(e)=>{ e.stopPropagation()}} 
                 className="side-menu-modal-content" style={{padding: '0', margin: '0', boxSizing: 'border-box', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px', backgroundColor: '#f7f7f7'}}>
@@ -30,10 +29,11 @@ export const SideMenu = ({changeSideMenuModalDisplay}) => {
                     <hr />
                     
                     <p style={{color: '#707070', textDecoration: 'underLine', paddingTop: '10px'}}>Orders:</p>
-                    <p style={{color: '#707070', padding: '10px'}}>My orders</p>
-                    <p style={{color: '#707070', paddingLeft: '10px'}}>Saved orders</p>
+                    <p onClick={()=>{history.push('/myOrders'); closeSideMenuModal(); }} style={{color: '#707070', padding: '10px'}}>My orders</p>
                     <hr style={{ margin: '10px'}}/>
                     <p onClick={()=>{history.push('/myRestaurants'); closeSideMenuModal(); }} style={{color: '#707070', paddingLeft: '10px'}}>My restaurants</p>
+                    <hr style={{ margin: '10px'}}/>
+                    <p onClick={()=>{history.push('/delivery'); closeSideMenuModal(); }} style={{color: '#707070', paddingLeft: '10px'}}>Delivery</p>
                     <hr style={{ margin: '10px'}}/>
                     <p style={{color: '#707070', textDecoration: 'underLine', paddingTop: '10px'}}>Settings:</p>
                     <p style={{color: '#707070', padding: '10px'}}>Language</p>

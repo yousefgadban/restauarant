@@ -6,11 +6,14 @@ import { useHistory } from 'react-router-dom';
 import Spinner from "../../Spinner/Spinner";
 import { addNewCall, addNewOrder } from '../../API/restAPI';
 import RestaurantService from "../../services/RestaurantService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Service = ({service, onServiceClicked}) => {
 
     const history = useHistory();
     const [status, setStatus] = useState('normal');
+    
 
     useEffect(()=>{
 
@@ -20,18 +23,29 @@ export const Service = ({service, onServiceClicked}) => {
         console.log('onServiceClicked', service);
         //onServiceClicked(e, service);
 
-        if (service !== 'Notes') {
+        if (service !== 'Notes' && service !== 'Order') {
+            
             setStatus('sending')
             setTimeout(() => {
+                
                 if (service !== 'Order') {
+                    
                     sendCall();
                 } else {
-                    sendOrder();
+                    //sendOrder();
+                    
                 }
             }, 1200);
+        } else {
+            if (OrderService.instance.getPrice() !== 0) {
+                onServiceClicked(service);
+            } else {
+                toast.error("Empty order");
+            }
         }
 
     }
+
 
     const sendOrder = async () => {
         let restaurantID = RestaurantService.instance.getRestaurantID();
@@ -98,19 +112,22 @@ export const Service = ({service, onServiceClicked}) => {
     }
  
     return(
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #2196f3', height: '70px', margin: '2px', borderRadius: '10px'}}>
-            <div 
-                onClick={(e)=>{onServiceClickedd()}}
-                style={{display: status === 'normal' ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                <img  className={`service ${service}Service`} alt="" />
-                <p style={{color: '#707070', fontSize: '14px'}}>{service}</p>
-            </div>
-            <div style={{display: status === 'sending' ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                <Spinner />
-            </div>
-            <div style={{display: status === 'done' ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                <img  className={`service DoneService`} alt="" />
-                <p style={{color: '#707070', fontSize: '14px'}}>Done</p>
+        <div>
+            <ToastContainer />
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #2196f3', height: '70px', margin: '2px', borderRadius: '10px'}}>
+                <div 
+                    onClick={(e)=>{onServiceClickedd()}}
+                    style={{display: status === 'normal' ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <img  className={`service ${service}Service`} alt="" />
+                    <p style={{color: '#707070', fontSize: '14px'}}>{service}</p>
+                </div>
+                <div style={{display: status === 'sending' ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <Spinner />
+                </div>
+                <div style={{display: status === 'done' ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <img  className={`service DoneService`} alt="" />
+                    <p style={{color: '#707070', fontSize: '14px'}}>Done</p>
+                </div>
             </div>
         </div>
     );

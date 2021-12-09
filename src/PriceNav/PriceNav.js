@@ -41,7 +41,6 @@ export const PriceNav = () => {
                     showAdditionsModal ? 
                     <CallsAndService showAdditionsModal={showAdditionsModal} changeAdditionsModalDisplay={changeAdditionsModalDisplay} />
                     : ''
-            
                 }
             </div>
            

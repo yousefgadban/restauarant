@@ -7,6 +7,7 @@ import Spinner from '../../Spinner/Spinner';
 import {  useHistory, useParams  } from 'react-router-dom';
 
 import socketIOClient from "socket.io-client";
+import { OptionModal } from "../OptionModal/OptionModal";
 const ENDPOINT = "http://127.0.0.1:4000";
 
 export const Orders = () => {
@@ -18,7 +19,12 @@ export const Orders = () => {
     const [showLoader, setShowLoader] = useState(true);
     const [renderTemp, setRenderTemp] = useState(true);
     const [orders, setOrders] = useState([]);
-    const ordersRef = useRef([])
+    const ordersRef = useRef([]);
+    const [currentOption, setCurrentOption] = useState('new');
+    const [showOptionsModal, setShowOptionsModal] = useState(false);
+    const currentOrder = useRef(null);
+
+    const options = ['new', 'progress', 'done', 'take away', 'delivery', 'delete'];
 
     useEffect(async()=>{
         const response = await getRestaurantOrders(restId);
@@ -40,11 +46,71 @@ export const Orders = () => {
         } else {
             console.log('Unknown error');
         }
+
+        socketListenToNewOrders();
+
     }, []);
 
-    const onReloadClicked = () => {
-        console.log('onReloadClicked');
-        //getOrdersData();
+
+    const socketListenToNewOrders = () => {
+        
+        const socket = socketIOClient(ENDPOINT);
+        socket.on("connect", () => {
+            console.log(`You connected with id: ${socket.id}`);
+            socket.emit('joinRestaurantOrders', {restId})
+
+            socket.on(`${restId}-orders`, (order)=> {
+                console.log('new order', order);
+                console.log('orders', orders, ordersRef.current);
+
+                const newOrder = ordersRef.current.find((o)=> {
+                    return order._id === o._id;
+                })
+
+                console.log(newOrder);
+
+                if (!newOrder) {
+                    ordersRef.current.push(order);
+
+                    console.log('ordersRef.current', ordersRef.current);
+                    
+                    setRenderTemp(true);
+                    setTimeout(() => {
+                        setOrders(ordersRef.current);
+                        setRenderTemp(false);
+                    }, 1000);
+                } else {
+                    newOrder.status = order.status;
+                    
+                    console.log('ordersRef.current changed', ordersRef.current);
+
+                    setRenderTemp(true);
+                    setTimeout(() => {
+                        setOrders(ordersRef.current);
+                        setRenderTemp(false);
+                    }, 1000);
+                }
+
+            })
+        });
+    }
+
+    const onOptionClicked = (option) => {
+        console.log('onOptionClicked', option);
+        if (option !== currentOption) {
+            setCurrentOption(option)
+        }
+    }
+
+    const onOrderClicked = (order) => {
+        console.log('onOrderClicked par', order.table);
+        currentOrder.current = order
+        setShowOptionsModal(true)
+    }
+
+    const changeOptionsModalDisplay = () => {
+        console.log('changeOptionsModalDisplay');
+        setShowOptionsModal(false)
     }
 
     const getOrdersData = async () => {
@@ -66,19 +132,35 @@ export const Orders = () => {
         </div>  
         : 
         <div>
-            <input 
-                type='button' 
-                value='reload' 
-                onClick={()=>onReloadClicked()}
-                style={{backgroundColor: '#2196f3', border: '1px solid #2196f3', borderRadius: '7px', padding: '10px 15px', margin: '12px', color: 'white' }} />
-                <br />
-                <div style={{display: 'grid', gridTemplateColumns: 'auto'}}>
-                    {
-                        ordersRef.current.map((order)=>{
-                            return <OrderItem key={order._id} order={order}/>
-                        })
-                    }
-                </div>
+            <div style={{display: 'grid', gridTemplateColumns: 'auto auto auto', margin: '2px 2px'}}>
+                {
+                    options.map((option)=>{
+                        return <div className={currentOption === option ? "option selected" : "option"}  style={{ color: option === 'delete' ? 'red' : currentOption === option ? 'white' : '#2196f3'}}  key={option} onClick={()=>{onOptionClicked(option)}} >{option}</div>
+                    })
+                }
+            </div>
+            <hr />
+            <div style={{display: 'grid', gridTemplateColumns: 'auto'}}>
+                {
+                    // ordersRef.current.map((order)=>{
+                    //     return <OrderItem key={order._id} order={order} onOrderClicked={onOrderClicked} />
+                    // })
+
+                    ordersRef.current.filter((order)=>{
+                        return order.status === currentOption;
+                    }).map((order)=>{
+                        return <OrderItem key={order._id} order={order} onOrderClicked={onOrderClicked} />
+                    })
+                }
+            </div>
+
+            <div style={{display: showOptionsModal ? 'block' : 'none'}}>
+                {
+                    showOptionsModal ? 
+                    <OptionModal options={options} changeOptionsModalDisplay={changeOptionsModalDisplay} currentCall={currentOrder.current}  kind="orders"/>
+                    : ''
+                }
+            </div>
         </div>
     );
 }

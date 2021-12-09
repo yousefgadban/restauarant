@@ -25,6 +25,8 @@ export const Header = () => {
 
         if (!LoginService.instance.getUser()) {
             history.push(`/login`);
+        } else {
+            console.log('header user', user);
         }
 
         // const response = await getUserInfo();
