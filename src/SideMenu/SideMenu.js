@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import './SideMenu.css'
+import { setUser } from '../Features/userSlice';
 
 export const SideMenu = ({changeSideMenuModalDisplay}) => {
 
     const history = useHistory();
+
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user.value);
 
     useEffect(()=>{
 
@@ -24,7 +29,7 @@ export const SideMenu = ({changeSideMenuModalDisplay}) => {
                     <span onClick={()=>{ closeSideMenuModal()}} className="close">&times;</span>
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '8px 0'}}>
                         <img className="sideMenuLogoImg"  alt='' style={{width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#ffffff', border: '1px solid #c8c8c8'}} />
-                        <div style={{fontSize: '18px', color: '#2196f3', padding: '12px'}}>App Name</div>
+                        <div style={{fontSize: '18px', color: '#2196f3', padding: '12px'}}>{user ? user.name : 'App Name'}</div>
                     </div>
                     <hr />
                     
@@ -50,7 +55,7 @@ export const SideMenu = ({changeSideMenuModalDisplay}) => {
                     <p style={{color: '#707070', padding: '10px'}}>Terms of use</p>
                     <p style={{color: '#707070', padding: '10px'}}>Contact Us</p>
                     <hr style={{ margin: '10px'}}/>
-                    <p onClick={()=>{history.push('/login'); closeSideMenuModal(); }} style={{color: '#707070', padding: '10px'}}>Logout</p>
+                    <p onClick={()=>{dispatch(setUser(null));  history.push('/login'); closeSideMenuModal(); }} style={{color: '#707070', padding: '10px'}}>Logout</p>
                 
                 </div>
                 

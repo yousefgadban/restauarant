@@ -15,8 +15,8 @@ export const AdditionModal = ({changeAdditionsModalDisplay, item, itemKey}) => {
     }
 
     return(
-        <div id="myModal" className="modal" style={{ }} onClick={()=>{ closeAdditionsModal()}}>
-            <div className="modal-content" style={{padding: '0', margin: '0', boxSizing: 'border-box', borderTopLeftRadius: '12px', borderTopRightRadius: '12px'}}>
+        <div id="myModal" className="addition-modal" style={{ }} onClick={()=>{ closeAdditionsModal()}}>
+            <div className="addition-modal-content" style={{padding: '0', margin: '0', boxSizing: 'border-box', borderTopLeftRadius: '12px', borderTopRightRadius: '12px'}}>
 
                 <div style={{backgroundColor: '#f7f7f7', padding: '8px', margin: '0', boxSizing: 'border-box', borderTopLeftRadius: '12px', borderTopRightRadius: '12px'}}>
                     <span onClick={()=>{ closeAdditionsModal()}} className="close">&times;</span>

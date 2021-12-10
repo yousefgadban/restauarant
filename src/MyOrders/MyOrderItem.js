@@ -35,7 +35,8 @@ export const MyOrderItem = ({order, onOrderClicked}) => {
 
     const onAcceptOrderClicked = async () => {
         
-        if (order.delivery === 'Delivery' && order.status === 'delivery') {
+        if (order.delivery === 'Delivery' && order.status === 'delivery' ||
+            order.delivery === 'Take-away' && order.status === 'take away') {
             console.log('onAcceptOrderClicked');
 
             setShowLoader(true);
@@ -94,7 +95,7 @@ export const MyOrderItem = ({order, onOrderClicked}) => {
                         style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70px'}}>
                     
                         {
-                            order.delivery === 'Delivery' && order.status === 'delivery'
+                            (order.delivery === 'Delivery' && order.status === 'delivery') || (order.delivery === 'Take-away' && order.status === 'take away')
                             ?
                             <img  className={`service DeliveryCheckedImg`} alt="" />
                             :

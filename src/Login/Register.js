@@ -2,9 +2,14 @@ import React, {useState, useEffect} from "react";
 import "./login.css";
 import {  useHistory  } from 'react-router-dom';
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import LoginService from "../services/LoginService";
+import { getUserInfo } from '../API/restAPI'
 
 
 export const Register = ()=> {
+
+    const dispatch = useDispatch();
 
     const history = useHistory();
 
@@ -30,15 +35,33 @@ export const Register = ()=> {
             "email": userEmail,
             "password": password
         }
-        const response = await axios.post('http://localhost:4000/api/auth/register', params)
-        console.log(response);
+        const response1 = await axios.post('http://localhost:4000/api/auth/register', params)
+        console.log(response1);
 
-        if (response.status === 201) {
+        if (response1.status === 201) {
             const token = response.data.data.accessToken;
             const refreshToken = response.data.data.refreshToken;
     
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
+
+            const response = await getUserInfo();
+            console.log('getUserInfo',response);
+
+            if (response.status === 200) {
+                LoginService.instance.setUser(response.data.data);
+                dispatch(setUser(response.data.data));
+                // socketListenToNotifications(response.data.data._id);
+                
+            } else if (response.status === 401 && (window.location.pathname !== '/login' && window.location.pathname !== '/register')) {
+                // history.push(`/login`);
+            } else if (response.status === 100) {
+                LoginService.instance.setUser(response.data.data);
+                dispatch(setUser(response.data.data));
+                //socketListenToNotifications(response.data.data._id);
+            } else {
+                console.log('Unknown error');
+            }
 
             history.push('/home');
 

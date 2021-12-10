@@ -24,10 +24,15 @@ import socketIOClient from "socket.io-client";
 import { Notifications } from './Notifications/Notifications';
 import { Delivery } from './Delivery/Delivery';
 import { MyOrders } from './MyOrders/MyOrders';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from './Features/userSlice';
 
 const ENDPOINT = "http://127.0.0.1:4000";
 
 function App() {
+
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.value);
 
   const history = useHistory();
 
@@ -38,12 +43,15 @@ function App() {
 
 
   useEffect(async () => {
+
+    console.log('App', user);
     
     const response = await getUserInfo();
     console.log('getUserInfo',response);
     setShowLoader(false)
     if (response.status === 200) {
         LoginService.instance.setUser(response.data.data);
+         dispatch(setUser(response.data.data));
         socketListenToNotifications(response.data.data._id);
         
     } else if (response.status === 401 && (window.location.pathname !== '/login' && window.location.pathname !== '/register')) {

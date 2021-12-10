@@ -22,7 +22,7 @@ span{
     box-sizing: border-box;
 }
 
-.modal {
+.addition-modal {
     display: flex; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -44,14 +44,14 @@ span{
   }
   
   /* Modal Content */
-  .modal-content {
+  .addition-modal-content {
     position: fixed;
     bottom: 0;
     background-color: #e7e7e7;
     width: 50vw;
-    -webkit-animation-name: slideIn;
+    -webkit-animation-name: additionSlideIn;
     -webkit-animation-duration: 0.4s;
-    animation-name: slideIn;
+    animation-name: additionSlideIn;
     animation-duration: 0.4s;
     padding: 0;
     margin: 0;
@@ -80,12 +80,12 @@ span{
 
   
   /* Add Animation */
-  @-webkit-keyframes slideIn {
+  @-webkit-keyframes additionSlideIn {
     from {bottom: -300px; opacity: 0} 
     to {bottom: 0; opacity: 1}
   }
   
-  @keyframes slideIn {
+  @keyframes additionSlideIn {
     from {bottom: -300px; opacity: 0}
     to {bottom: 0; opacity: 1}
   }
@@ -108,7 +108,7 @@ span{
 /* Smartphones */
 @media only screen and (max-width: 500px) {
 
-    .modal-content {
+    .addition-modal-content {
         width: 100vw;
     }
 
